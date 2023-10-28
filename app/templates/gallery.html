@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gallery</title>
+</head>
+<body>
+    <h1>Gallery</h1>
+
+    <ul id="navigation">
+    {% for item in gallery_items %}
+        <li><a href="{{ item }}">{{ item }}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

@@ -10,8 +10,9 @@ RUN apk update && \
     apk add --no-cache gcc musl-dev linux-headers libpq-dev python3-dev
 
 WORKDIR /app
-COPY ./app /app
 COPY ./requirements.txt /app
 RUN pip install -r requirements.txt
+
+COPY ./app /app
 
 CMD ["flask", "run"]
