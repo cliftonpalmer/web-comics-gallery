@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ title }}</title>
+</head>
+<body style='background-color: black'>
+<center>
+<div style='height: 99vh'>
+<a href="{{ next_page_url }}">
+    <img style='height: 100%; width: 100%; object-fit: contain'
+        src="{{ src }}" alt="{{ alt }}" />
+</a>
+</div>
+<p><a href="/">Home</a> | <a href="/{{ gallery }}">{{ gallery }}</a> | <a href="{{ prev_page_url }}">Prev</a>, <a href="{{ next_page_url }}">Next</a></p>
+</center>
+</body>
+</html>

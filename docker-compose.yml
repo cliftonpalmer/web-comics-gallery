@@ -8,6 +8,15 @@ services:
         ports:
         - 5432:5432
     web:
+        image: nginx:1.17
+        volumes:
+        - ./nginx.conf:/etc/nginx/nginx.conf
+        - gallery_data:/data/images
+        ports:
+        - 80:80
+        depends_on:
+        - gallery
+    gallery:
         build: .
         image: cjpalmer/gallery:0.1.0
         volumes:
@@ -15,8 +24,8 @@ services:
         - ./app:/app
         environment:
             FLASK_DEBUG: 1
-        ports:
-        - 80:5000
+        depends_on:
+        - db
 volumes:
     gallery_data:
         driver: local

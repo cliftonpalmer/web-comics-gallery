@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pages</title>
+</head>
+<body>
+    <h1>Pages</h1>
+
+    <ul id="navigation">
+    {% for page in pages %}
+        <li><a href="{{ gallery }}/{{ page }}">{{ page }}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

@@ -13,6 +13,7 @@ WORKDIR /app
 COPY ./requirements.txt /app
 RUN pip install -r requirements.txt
 
-COPY ./app /app
+COPY ./app/app.py    /app
+COPY ./app/templates /app
 
 CMD ["flask", "run"]
