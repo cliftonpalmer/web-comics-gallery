@@ -8,7 +8,7 @@
 
     <ul id="navigation">
     {% for page in pages %}
-        <li><a href="{{ gallery }}/{{ page }}">{{ page }}</a></li>
+        <li><a href="{{ gallery }}/{{ page.number }}">{{ page.number }}</a></li>
     {% endfor %}
     </ul>
 </body>

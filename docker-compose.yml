@@ -18,7 +18,7 @@ services:
         - gallery
     gallery:
         build: .
-        image: cjpalmer/gallery:0.1.0
+        image: cjpalmer/gallery:1.0.0
         volumes:
         - gallery_data:/app/gallery
         - ./app:/app

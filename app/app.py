@@ -16,30 +16,49 @@ def render_gallery():
     gallery_names.sort()
     return render_template( 'gallery.html', galleries=gallery_names )
 
+def get_page_number_from_name(name):
+    try:
+        return int(get_num_regex.findall(name)[-1]) 
+    except IndexError:
+        print ("Index error on name " + name, flush=True)
+        return -1
+
 @app.route('/<gallery>')
 def render_pages(gallery=None):
-    page_names = []
+    template_pages = []
     with os.scandir(gallery_root + "/" + gallery) as pages:
         for page in pages:
             if page.is_file() and page.name.endswith('.png') or page.name.endswith('.jpg'):
-                page_names.append(page.name)
-    page_names.sort()
-    return render_template( 'pages.html', gallery=gallery, pages=page_names )
+                template_pages.append({
+                    'name': page.name, 
+                    'number': get_page_number_from_name(page.name)
+                    })
+    template_pages = sorted(template_pages, key=lambda page: page['number'])
+    return render_template( 'pages.html', gallery=gallery, pages=template_pages )
 
-@app.route('/<gallery>/<page>')
-def render_page(gallery=None, page=None):
-    src = '/images/{}/{}'.format( gallery, page )
+@app.route('/<gallery>/<int:page_num>')
+def render_page(gallery=None, page_num=None):
 
-    page_num = int(get_num_regex.findall(page)[-1])
-    page_num_str = str(page_num).rjust(3, '0')
-    next_page_num_str = str(page_num + 1).rjust(3, '0')
-    prev_page_num_str = str(page_num - 1).rjust(3, '0')
+    # find a page that I think corrosponds to this page number
+    page_name = None
+    with os.scandir(gallery_root + "/" + gallery) as pages:
+        for page in pages:
+            if page.is_file():
+                num = get_page_number_from_name(page.name)
+                if int(page_num) == int(num):
+                    page_name = page.name
+                    break
 
-    prev_page_url = '/{}/{}'.format(gallery, page.replace(page_num_str, prev_page_num_str) )
-    next_page_url = '/{}/{}'.format(gallery, page.replace(page_num_str, next_page_num_str) )
+    # if found, create src link to that page
+    if page_name:
+        src = '/images/{}/{}'.format( gallery, page_name )
+        prev_page_url = "/{}/{}".format( gallery, page_num - 1)
+        next_page_url = "/{}/{}".format( gallery, page_num + 1)
 
-    return render_template( 'page.html',
-        gallery=gallery, page=page, page_num=page_num,
-        title=page, src=src, alt=page,
-        prev_page_url=prev_page_url,
-        next_page_url=next_page_url )
+        return render_template( 'page.html',
+            gallery=gallery, page_num=page_num,
+            title=page_name, src=src, alt=page_name,
+            prev_page_url=prev_page_url,
+            next_page_url=next_page_url )
+    else:
+        return 'No page found'
