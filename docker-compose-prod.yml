@@ -1,21 +1,21 @@
 version: '3'
+networks:
+    proxy:
+        external: true
 services:
     navigator:
-        build: ./navigator
         image: cjpalmer/gallery-navigator:1.1.0
         volumes:
         - gallery_data:/app/gallery
-        environment:
-            FLASK_DEBUG: 1
     server:
-        build: ./server
         image: cjpalmer/gallery-server:1.1.0
         volumes:
         - gallery_data:/data/images
-        ports:
-        - 80:80
         depends_on:
         - navigator
+        networks:
+        - default
+        - proxy
 volumes:
     gallery_data:
         driver: local
