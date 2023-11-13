@@ -2,11 +2,15 @@ version: '3'
 networks:
     proxy:
         external: true
+    backend:
+        driver: overlay
 services:
     navigator:
-        image: cjpalmer/gallery-navigator:1.1.0
+        image: cjpalmer/gallery-navigator:1.2.0
         volumes:
         - gallery_data:/app/gallery
+        networks:
+        - backend
     server:
         image: cjpalmer/gallery-server:1.1.0
         volumes:
@@ -14,7 +18,7 @@ services:
         depends_on:
         - navigator
         networks:
-        - default
+        - backend
         - proxy
 volumes:
     gallery_data:

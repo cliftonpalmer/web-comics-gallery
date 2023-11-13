@@ -6,8 +6,7 @@ ENV FLASK_PORT=5000
 
 EXPOSE 5000
 
-RUN apk update && \
-    apk add --no-cache gcc musl-dev linux-headers libpq-dev python3-dev
+RUN apk update
 
 WORKDIR /app
 COPY ./requirements.txt /app

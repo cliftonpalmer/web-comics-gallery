@@ -2,7 +2,7 @@ version: '3'
 services:
     navigator:
         build: ./navigator
-        image: cjpalmer/gallery-navigator:1.1.0
+        image: cjpalmer/gallery-navigator:1.2.0
         volumes:
         - gallery_data:/app/gallery
         environment:
