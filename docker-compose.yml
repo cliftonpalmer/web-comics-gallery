@@ -2,24 +2,24 @@ version: '3'
 services:
     navigator:
         build: ./navigator
-        image: cjpalmer/gallery-navigator:1.2.0
+        image: cjpalmer/gallery-navigator:1.3.0
         volumes:
-        - gallery_data:/app/gallery
+        - gallery_data_dev:/app/gallery
         environment:
             FLASK_DEBUG: 1
     server:
         build: ./server
-        image: cjpalmer/gallery-server:1.1.0
+        image: cjpalmer/gallery-server:1.3.0
         volumes:
-        - gallery_data:/data/images
+        - gallery_data_dev:/data/images
         ports:
         - 80:80
         depends_on:
         - navigator
 volumes:
-    gallery_data:
+    gallery_data_dev:
         driver: local
         driver_opts:
             o: bind
             type: none
-            device: /mnt/gallery_data
+            device: /mnt/gallery_data_dev

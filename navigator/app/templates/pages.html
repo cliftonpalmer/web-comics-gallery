@@ -6,6 +6,14 @@
 <body>
     <h1>Pages</h1>
 
+    {% if description %}
+    <p>
+    {% autoescape false %}
+    {{ description }}
+    {% endautoescape %}
+    </p>
+    {% endif %}
+
     <ul id="navigation">
     {% for page in pages %}
         <li><a href="{{ gallery }}/{{ page.number }}">{{ page.number }}</a></li>

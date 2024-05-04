@@ -6,13 +6,13 @@ networks:
         driver: overlay
 services:
     navigator:
-        image: cjpalmer/gallery-navigator:1.2.0
+        image: cjpalmer/gallery-navigator:1.3.0
         volumes:
         - gallery_data:/app/gallery
         networks:
         - backend
     server:
-        image: cjpalmer/gallery-server:1.1.0
+        image: cjpalmer/gallery-server:1.3.0
         volumes:
         - gallery_data:/data/images
         depends_on:

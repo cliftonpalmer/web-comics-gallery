@@ -4,6 +4,7 @@ import re
 
 app = Flask(__name__)
 gallery_root = "/app/gallery"
+gallery_desc_filename = "description.html"
 get_num_regex = re.compile(r'\d+')
 
 @app.route('/')
@@ -25,8 +26,11 @@ def get_page_number_from_name(name):
 
 @app.route('/<gallery>')
 def render_pages(gallery=None):
+    gallery_dir = gallery_root + "/" + gallery
+
+    # get list of available pages in gallery
     template_pages = []
-    with os.scandir(gallery_root + "/" + gallery) as pages:
+    with os.scandir(gallery_dir) as pages:
         for page in pages:
             if page.is_file() and page.name.endswith('.png') or page.name.endswith('.jpg'):
                 template_pages.append({
@@ -34,7 +38,22 @@ def render_pages(gallery=None):
                     'number': get_page_number_from_name(page.name)
                     })
     template_pages = sorted(template_pages, key=lambda page: page['number'])
-    return render_template( 'pages.html', gallery=gallery, pages=template_pages )
+
+    # get description for gallery (if available)
+    desc_filename = gallery_dir + "/" + gallery_desc_filename
+    description = None
+    try:
+        with open(desc_filename, 'r') as file:
+            description = file.read()
+    except:
+        print("Description file not found at " + desc_filename)
+
+    # render!
+    return render_template( 'pages.html',
+        gallery=gallery,
+        description=description,
+        pages=template_pages
+        )
 
 @app.route('/<gallery>/<int:page_num>')
 def render_page(gallery=None, page_num=None):
