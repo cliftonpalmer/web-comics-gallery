@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Gallery</title>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="static/css/colors.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/index.css" />
 </head>
-<body>
-    <h1>Gallery</h1>
+<body class="first-color">
+    <div class="titlecard second-color">
+    <h1>{{ title }}</h1>
 
-    <ul id="navigation">
+    <ul class="card" id="navigation">
     {% for gallery in galleries %}
-        <li><a href="{{ gallery }}">{{ gallery }}</a></li>
+        <li class="link third-color"><a href="{{ gallery }}">{{ gallery }}</a></li>
     {% endfor %}
     </ul>
+    </div>
 </body>
 </html>

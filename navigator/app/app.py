@@ -15,7 +15,10 @@ def render_gallery():
             if not gallery.is_file():
                 gallery_names.append(gallery.name)
     gallery_names.sort()
-    return render_template( 'gallery.html', galleries=gallery_names )
+    return render_template( 'gallery.html',
+        title="My Comics",
+        galleries=gallery_names
+        )
 
 def get_page_number_from_name(name):
     try:
@@ -50,6 +53,7 @@ def render_pages(gallery=None):
 
     # render!
     return render_template( 'pages.html',
+        title=gallery,
         gallery=gallery,
         description=description,
         pages=template_pages
@@ -76,7 +80,7 @@ def render_page(gallery=None, page_num=None):
 
         return render_template( 'page.html',
             gallery=gallery, page_num=page_num,
-            title=page_name, src=src, alt=page_name,
+            title='{} {}'.format(gallery, page_num), src=src, alt=page_name,
             prev_page_url=prev_page_url,
             next_page_url=next_page_url )
     else:

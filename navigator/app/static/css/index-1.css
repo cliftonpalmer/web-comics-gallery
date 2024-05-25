@@ -1,0 +1,36 @@
+a, p, li, h1, h2, h3, h4, h5, h6 {
+    font-family: "Monospace", sans-serif;
+    font-size: 18;
+    color: purple;
+}
+
+a {
+    font-size: 24;
+}
+
+li {
+    list-style-type: none;
+}
+
+#title {
+    font-weight: 700;
+    font-size: 70;
+}
+
+.titlecard { 
+    width: 512px;
+    border-radius: 16px;
+    padding: 32px;
+    margin:0 auto;
+}
+
+.card { 
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.link { 
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+}

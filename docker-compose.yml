@@ -2,14 +2,15 @@ version: '3'
 services:
     navigator:
         build: ./navigator
-        image: cjpalmer/gallery-navigator:1.3.0
+        image: cjpalmer/gallery-navigator:1.4.0
         volumes:
+#       - ./navigator/app:/app # dev testing
         - gallery_data_dev:/app/gallery
         environment:
             FLASK_DEBUG: 1
     server:
         build: ./server
-        image: cjpalmer/gallery-server:1.3.0
+        image: cjpalmer/gallery-server:1.4.0
         volumes:
         - gallery_data_dev:/data/images
         ports:
