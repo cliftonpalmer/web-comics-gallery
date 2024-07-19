@@ -7,14 +7,13 @@
 </head>
 <body class="first-color">
     <div class="titlecard second-color">
-    <h1>{{ title }}</h1>
 
-    {% if description %}
-    <p class="card second-color">
+    {% if header %}
+    <div class="card second-color">
     {% autoescape false %}
-    {{ description }}
+    {{ header }}
     {% endautoescape %}
-    </p>
+    </div>
     {% endif %}
 
     <ul class="card second-color" id="navigation">

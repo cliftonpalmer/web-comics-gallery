@@ -4,8 +4,27 @@ import re
 
 app = Flask(__name__)
 gallery_root = "/app/gallery"
-gallery_desc_filename = "description.html"
 get_num_regex = re.compile(r'\d+')
+
+### helper functions ###
+
+def get_page_number_from_name(name):
+    try:
+        return int(get_num_regex.findall(name)[-1])
+    except IndexError:
+        print ("Index error on name " + name, flush=True)
+        return -1
+
+def get_file_text(filename):
+    file_text = None
+    try:
+        with open(filename, 'r') as file:
+            file_text = file.read()
+    except:
+        print("File not found:" + filename)
+    return file_text
+
+### routes ###
 
 @app.route('/')
 def render_gallery():
@@ -19,13 +38,6 @@ def render_gallery():
         title="My Comics",
         galleries=gallery_names
         )
-
-def get_page_number_from_name(name):
-    try:
-        return int(get_num_regex.findall(name)[-1]) 
-    except IndexError:
-        print ("Index error on name " + name, flush=True)
-        return -1
 
 @app.route('/<gallery>')
 def render_pages(gallery=None):
@@ -42,20 +54,14 @@ def render_pages(gallery=None):
                     })
     template_pages = sorted(template_pages, key=lambda page: page['number'])
 
-    # get description for gallery (if available)
-    desc_filename = gallery_dir + "/" + gallery_desc_filename
-    description = None
-    try:
-        with open(desc_filename, 'r') as file:
-            description = file.read()
-    except:
-        print("Description file not found at " + desc_filename)
+    # get header for gallery (if available)
+    header_html = get_file_text(gallery_dir + "/header.html")
 
     # render!
     return render_template( 'pages.html',
         title=gallery,
         gallery=gallery,
-        description=description,
+        header=header_html,
         pages=template_pages
         )
 
