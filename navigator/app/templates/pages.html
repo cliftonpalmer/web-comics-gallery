@@ -9,16 +9,18 @@
     <div class="titlecard second-color">
 
     {% if header %}
-    <div class="card second-color">
+    <div class="card third-color">
     {% autoescape false %}
     {{ header }}
     {% endautoescape %}
     </div>
     {% endif %}
 
-    <ul class="card second-color" id="navigation">
+    <ul class="card third-color" id="navigation">
     {% for page in pages %}
-        <li class="link third-color"><a href="{{ gallery }}/{{ page.number }}">{{ page.number }}</a></li>
+        <li class="link fourth-color">
+            <a href="{{ gallery }}/{{ page.number }}">{{ page.number }}</a>
+        </li>
     {% endfor %}
     </ul>
     </div>

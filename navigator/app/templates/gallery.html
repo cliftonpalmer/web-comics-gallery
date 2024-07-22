@@ -9,9 +9,11 @@
     <div class="titlecard second-color">
     <h1>{{ title }}</h1>
 
-    <ul class="card" id="navigation">
+    <ul class="card third-color" id="navigation">
     {% for gallery in galleries %}
-        <li class="link third-color"><a href="{{ gallery }}">{{ gallery }}</a></li>
+        <li class="link fourth-color">
+            <a href="{{ gallery }}">{{ gallery }}</a>
+        </li>
     {% endfor %}
     </ul>
     </div>
